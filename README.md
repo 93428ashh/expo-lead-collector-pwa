@@ -1,6 +1,8 @@
 # Expo Lead Collector PWA
 
-![App Screenshot](screenshot.png)
+![loginpage Screenshot](login.png)
+![formpage Screenshot](form.png)
+![recordpage Screenshot](record.png)
 
 A secure and offline-first Progressive Web App (PWA) designed to help businesses at trade shows and events capture and manage customer leads efficiently. Built with Vanilla JavaScript and a full Firebase backend.
 
