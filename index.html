@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expo Lead Collector</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" style="max-width: 340px; margin: 60px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #0001; padding: 32px 24px;display: none;">
+    <h2 style="text-align:center;">Login</h2>
+    <form id="loginForm">
+      <input type="text" id="loginUser" placeholder="Username" required style="margin-bottom:16px;">
+      <input type="password" id="loginPass" placeholder="Password" required style="margin-bottom:24px;">
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginError" style="color:#e00; text-align:center; margin-top:10px; display:none;"></div>
+  </div>
+
+  <!-- Main App Container (hidden until login) -->
+  <div class="container" style="display:none;">
+    <img src="sivaprints.png" alt="Expo Logo" class="logo-image" />
+    <div class="main-content">
+      <div class="form-section">
+        <h2>Expo Lead Collection Form</h2>
+        <form id="leadForm">
+          <input type="tel" id="phone" placeholder="Mobile Number" required />
+          <div id="phone-status"></div> 
+          <div id="phone-validation-error" style="color:#e00; display:none; margin-bottom:8px;"></div>
+          <input type="text" id="company" placeholder="Company Name" required />
+          <input type="text" id="name" placeholder="Customer Name" required />
+          <input type="email" id="email" placeholder="Email Address" />
+          <textarea id="address" placeholder="Company Address"></textarea>
+          <input type="hidden" id="customerType" name="customerType">
+          <label class="group-label">Business Card Provided:</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="card" value="Yes" required /> Yes
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="card" value="No" /> No
+            </label>
+          </div>
+          <button type="submit" id="submitBtn">Submit</button>
+        </form>
+        <button id="showAdminBtn" type="button" style="margin-top:18px;">View Customer Records</button>
+      </div>
+      <div id="adminSection" class="admin-section" style="display:none;">
+        <div class="admin-section-header">
+          <h3 style="margin: 0;">📋 Lead Entries</h3>
+          <button id="closeAdminBtn" type="button" title="Close">×</button>
+        </div>
+        
+        <div id="importerSection" style="background: #f1f5fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+          <h4 style="margin-top: 0; margin-bottom: 10px;">Import Previous Records</h4>
+          <input type="file" id="excelFile" accept=".xlsx, .xls" style="margin-bottom: 10px;"/>
+          <button id="importBtn" type="button">📤 Import from Excel</button>
+          <div id="import-status" style="margin-top: 10px; font-size: 0.9em;"></div>
+        </div>
+        
+        <div style="overflow-x:auto;">
+          <table id="dataTable" border="1" style="width: 100%; text-align: left;">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Card</th>
+                <th>Customer Type</th> 
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="pagination-controls" style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+            <button id="prevBtn" type="button" style="width: 100px;">Previous</button>
+            <span id="pageInfo" style="font-size: 0.9em; color: #555;"></span>
+            <button id="nextBtn" type="button" style="width: 100px;">Next</button>
+        </div>
+        <br />
+        <button id="pdfBtn">📄 Export PDF</button>
+        <button id="xlsxBtn">📥 Export XLSX</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pouchdb-find@7.3.0/dist/pouchdb.find.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+  <script type="module" src="export.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+
+
+</body>
+</html>
